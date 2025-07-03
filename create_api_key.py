@@ -2,6 +2,7 @@ import secrets
 import json
 import hashlib
 from loguru import logger
+from schema import APIKey
 
 def hash_api_key(api_key):
     return hashlib.sha256(api_key.encode()).hexdigest()
@@ -44,6 +45,12 @@ def generate_api_keys(num_keys=1, key_length=32, restrictions=None):
         hashed_keys[key] = hashed_key
 
     return keys, hashed_keys
+
+def store_api_key(db, user_id, hashed_api_key):
+    new_key = APIKey(user_id=user_id, api_key_hash=hashed_api_key)
+    db.add(new_key)
+    db.commit()
+    db.refresh(new_key)
 
 def save_keys_to_file(keys, filename="api_keys.json"):
     """
