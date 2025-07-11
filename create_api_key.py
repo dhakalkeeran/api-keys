@@ -2,7 +2,7 @@ import secrets
 import json
 import hashlib
 from loguru import logger
-from schema import APIKey
+from models import APIKey
 
 def hash_api_key(api_key):
     return hashlib.sha256(api_key.encode()).hexdigest()

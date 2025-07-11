@@ -5,12 +5,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from create_api_key import generate_api_key, store_api_key
 from verify_api_key import verify_api_key
-from schema import Base
+from models import Base
 
 
-def create_and_store_api_key(db):
+def create_and_store_api_key(db, user_id=1):
     api_key, hashed_api_key = generate_api_key()
-    store_api_key(db, 1, hashed_api_key)
+    store_api_key(db, user_id, hashed_api_key)
     logger.warning(f"{api_key} \nPlease note the API key. This is the only time you can see this key.")
 
 def verify_incoming_api_key(db, incoming_api_key):

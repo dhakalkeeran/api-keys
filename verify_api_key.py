@@ -1,6 +1,6 @@
 from sqlalchemy import func
 from create_api_key import hash_api_key
-from schema import APIKey
+from models import APIKey
 
 
 def verify_api_key(db, incoming_api_key):
